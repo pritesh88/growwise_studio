@@ -36,7 +36,7 @@ function BusinessTypePage() {
       <div className="ambient px-4 pb-24 pt-28 sm:px-6 sm:pt-36">
         <div className="mx-auto max-w-5xl">
           <Link
-            to="/"
+            to="/services"
             hash="business-types"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >

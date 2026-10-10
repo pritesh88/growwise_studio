@@ -1,5 +1,5 @@
 import { useEffect, useState, type CSSProperties } from "react";
-import { ArrowDown } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import cafeImg from "@/assets/stock/hero-cafe.webp";
 import storeImg from "@/assets/stock/hero-store.webp";
@@ -117,9 +117,9 @@ export function Hero() {
           style={{ animationDelay: "240ms" }}
         >
           <PlanLink from="hero" />
-          <Link to="/" hash="work" className={btnSecondary}>
+          <Link to="/work" className={btnSecondary}>
             See what we build
-            <ArrowDown className="size-4 text-cobalt" />
+            <ArrowRight className="size-4 text-cobalt" />
           </Link>
         </div>
 

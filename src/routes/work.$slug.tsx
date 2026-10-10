@@ -61,8 +61,7 @@ function CaseStudy() {
       <div className="ambient px-4 pb-8 pt-28 sm:px-6 sm:pt-36">
         <article className="mx-auto max-w-5xl">
           <Link
-            to="/"
-            hash="work"
+            to="/work"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             <ArrowLeft className="size-4" />

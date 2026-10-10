@@ -46,8 +46,7 @@ function ResourcePage() {
       <div className="ambient px-4 pb-24 pt-28 sm:px-6 sm:pt-36">
         <article className="mx-auto max-w-2xl">
           <Link
-            to="/"
-            hash="resources"
+            to="/resources"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             <ArrowLeft className="size-4" />

@@ -40,10 +40,9 @@ export function Navbar() {
         <div className="ml-auto hidden items-center lg:flex">
           {nav.map((l) => (
             <Link
-              key={l.hash}
-              to="/"
-              hash={l.hash}
-              className="rounded-full px-3.5 py-2 text-sm text-muted-foreground transition-colors duration-300 hover:bg-tint/5 hover:text-foreground"
+              key={l.to}
+              to={l.to}
+              className="rounded-full px-3.5 py-2 text-sm text-muted-foreground transition-colors duration-300 hover:bg-tint/5 hover:text-foreground data-[status=active]:bg-tint/5 data-[status=active]:text-foreground"
             >
               {l.label}
             </Link>
@@ -76,10 +75,9 @@ export function Navbar() {
         >
           {nav.map((l) => (
             <Link
-              key={l.hash}
-              to="/"
-              hash={l.hash}
-              className="block rounded-2xl px-4 py-3.5 text-base text-foreground transition-colors hover:bg-tint/5"
+              key={l.to}
+              to={l.to}
+              className="block rounded-2xl px-4 py-3.5 text-base text-foreground transition-colors hover:bg-tint/5 data-[status=active]:bg-tint/5"
             >
               {l.label}
             </Link>

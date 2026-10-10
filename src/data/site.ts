@@ -48,12 +48,12 @@ export const callLink =
   whatsappLink("Hi Pritesh, I'd like to book a 15-minute call about a website for my business.");
 
 export const nav = [
-  { label: "Work", hash: "work" },
-  { label: "Services", hash: "services" },
-  { label: "How We Work", hash: "how-we-work" },
-  { label: "Pricing", hash: "pricing" },
-  { label: "Resources", hash: "resources" },
-];
+  { label: "Services", to: "/services" },
+  { label: "Work", to: "/work" },
+  { label: "Pricing", to: "/pricing" },
+  { label: "About", to: "/about" },
+  { label: "Resources", to: "/resources" },
+] as const;
 
 export const heroProof = [
   "15+ projects delivered",
@@ -65,7 +65,7 @@ export const proof = [
   { value: "15+", label: "Projects delivered" },
   { value: "2+", label: "Years building digital products" },
   { value: "Full-stack", label: "Design to deployment" },
-  { value: "Real", label: "Client work, shown below" },
+  { value: "Real", label: "Client work, not mock-ups" },
   { value: "Direct", label: "Collaboration, no hand-offs" },
   { value: "Post-launch", label: "Support after go-live" },
 ];

@@ -10,15 +10,25 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as CheckRouteImport } from './routes/check'
 import { Route as PlanRouteImport } from './routes/plan'
+import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ForSlugRouteImport } from './routes/for.$slug'
+import { Route as ResourcesIndexRouteImport } from './routes/resources.index'
 import { Route as ResourcesSlugRouteImport } from './routes/resources.$slug'
+import { Route as WorkIndexRouteImport } from './routes/work.index'
 import { Route as WorkSlugRouteImport } from './routes/work.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CheckRoute = CheckRouteImport.update({
@@ -31,14 +41,34 @@ const PlanRoute = PlanRouteImport.update({
   path: '/plan',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ForSlugRoute = ForSlugRouteImport.update({
   id: '/for/$slug',
   path: '/for/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResourcesIndexRoute = ResourcesIndexRouteImport.update({
+  id: '/resources/',
+  path: '/resources/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResourcesSlugRoute = ResourcesSlugRouteImport.update({
   id: '/resources/$slug',
   path: '/resources/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkIndexRoute = WorkIndexRouteImport.update({
+  id: '/work/',
+  path: '/work/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WorkSlugRoute = WorkSlugRouteImport.update({
@@ -49,53 +79,98 @@ const WorkSlugRoute = WorkSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/check': typeof CheckRoute
   '/plan': typeof PlanRoute
+  '/pricing': typeof PricingRoute
+  '/services': typeof ServicesRoute
   '/for/$slug': typeof ForSlugRoute
   '/resources/$slug': typeof ResourcesSlugRoute
   '/work/$slug': typeof WorkSlugRoute
+  '/resources/': typeof ResourcesIndexRoute
+  '/work/': typeof WorkIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/check': typeof CheckRoute
   '/plan': typeof PlanRoute
+  '/pricing': typeof PricingRoute
+  '/services': typeof ServicesRoute
   '/for/$slug': typeof ForSlugRoute
   '/resources/$slug': typeof ResourcesSlugRoute
   '/work/$slug': typeof WorkSlugRoute
+  '/resources': typeof ResourcesIndexRoute
+  '/work': typeof WorkIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/check': typeof CheckRoute
   '/plan': typeof PlanRoute
+  '/pricing': typeof PricingRoute
+  '/services': typeof ServicesRoute
   '/for/$slug': typeof ForSlugRoute
   '/resources/$slug': typeof ResourcesSlugRoute
   '/work/$slug': typeof WorkSlugRoute
+  '/resources/': typeof ResourcesIndexRoute
+  '/work/': typeof WorkIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/check' | '/plan' | '/for/$slug' | '/resources/$slug' | '/work/$slug'
-  fileRoutesByTo: FileRoutesByTo
-  to:
-    '/' | '/check' | '/plan' | '/for/$slug' | '/resources/$slug' | '/work/$slug'
-  id:
-    | '__root__'
     | '/'
+    | '/about'
     | '/check'
     | '/plan'
+    | '/pricing'
+    | '/services'
     | '/for/$slug'
     | '/resources/$slug'
     | '/work/$slug'
+    | '/resources/'
+    | '/work/'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/about'
+    | '/check'
+    | '/plan'
+    | '/pricing'
+    | '/services'
+    | '/for/$slug'
+    | '/resources/$slug'
+    | '/work/$slug'
+    | '/resources'
+    | '/work'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/check'
+    | '/plan'
+    | '/pricing'
+    | '/services'
+    | '/for/$slug'
+    | '/resources/$slug'
+    | '/work/$slug'
+    | '/resources/'
+    | '/work/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   CheckRoute: typeof CheckRoute
   PlanRoute: typeof PlanRoute
+  PricingRoute: typeof PricingRoute
+  ServicesRoute: typeof ServicesRoute
   ForSlugRoute: typeof ForSlugRoute
   ResourcesSlugRoute: typeof ResourcesSlugRoute
   WorkSlugRoute: typeof WorkSlugRoute
+  ResourcesIndexRoute: typeof ResourcesIndexRoute
+  WorkIndexRoute: typeof WorkIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -105,6 +180,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/check': {
@@ -121,6 +203,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlanRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/for/$slug': {
       id: '/for/$slug'
       path: '/for/$slug'
@@ -128,11 +224,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/resources/': {
+      id: '/resources/'
+      path: '/resources'
+      fullPath: '/resources/'
+      preLoaderRoute: typeof ResourcesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/resources/$slug': {
       id: '/resources/$slug'
       path: '/resources/$slug'
       fullPath: '/resources/$slug'
       preLoaderRoute: typeof ResourcesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/work/': {
+      id: '/work/'
+      path: '/work'
+      fullPath: '/work/'
+      preLoaderRoute: typeof WorkIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/work/$slug': {
@@ -147,11 +257,16 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   CheckRoute: CheckRoute,
   PlanRoute: PlanRoute,
+  PricingRoute: PricingRoute,
+  ServicesRoute: ServicesRoute,
   ForSlugRoute: ForSlugRoute,
   ResourcesSlugRoute: ResourcesSlugRoute,
   WorkSlugRoute: WorkSlugRoute,
+  ResourcesIndexRoute: ResourcesIndexRoute,
+  WorkIndexRoute: WorkIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

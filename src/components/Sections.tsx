@@ -66,25 +66,30 @@ import { needOptions } from "@/lib/planner";
 import { cn } from "@/lib/utils";
 
 const sectionClass = "scroll-mt-24 px-4 py-20 sm:px-6 sm:py-28";
+// For the section that opens a page: clears the fixed navbar and carries the h1.
+const leadClass = "pt-28 sm:pt-36";
 
 export function SectionHead({
   eyebrow,
   title,
   note,
+  lead,
 }: {
   eyebrow: string;
   title: string;
   note?: string;
+  lead?: boolean;
 }) {
+  const Heading = lead ? "h1" : "h2";
   return (
     <Reveal className="mb-10 max-w-3xl sm:mb-16">
       <p className="label flex items-center gap-3">
         <span className="h-px w-8 bg-cobalt/60" aria-hidden />
         {eyebrow}
       </p>
-      <h2 className="mt-5 text-balance font-display text-3xl font-medium leading-[1.08] text-ink sm:text-5xl">
+      <Heading className="mt-5 text-balance font-display text-3xl font-medium leading-[1.08] text-ink sm:text-5xl">
         {title}
-      </h2>
+      </Heading>
       {note && (
         <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
           {note}
@@ -104,6 +109,20 @@ function CheckList({ items, className }: { items: string[]; className?: string }
         </li>
       ))}
     </ul>
+  );
+}
+
+function MoreLink({ to, children }: { to: (typeof nav)[number]["to"]; children: ReactNode }) {
+  return (
+    <Reveal className="mt-8 sm:mt-10">
+      <Link
+        to={to}
+        className="group inline-flex items-center gap-1.5 text-sm font-medium text-foreground"
+      >
+        {children}
+        <ArrowRight className="size-4 text-cobalt transition-transform group-hover:translate-x-1" />
+      </Link>
+    </Reveal>
   );
 }
 
@@ -187,11 +206,12 @@ function Flow({ steps, active }: { steps: string[]; active?: boolean }) {
   );
 }
 
-export function WhyUs() {
+export function WhyUs({ lead = false }: { lead?: boolean }) {
   return (
-    <section id="why-us" className={cn(sectionClass, "band")}>
+    <section id="why-us" className={cn(sectionClass, "band", lead && leadClass)}>
       <div className="mx-auto max-w-6xl">
         <SectionHead
+          lead={lead}
           eyebrow="Why us"
           title="We don't start with pages. We start with the business."
           note="Before we talk about design or features, we work out what the website has to do for you. That decides everything that follows."
@@ -265,11 +285,12 @@ const serviceLayout: { span: string; wide: boolean; image: string }[] = [
   { span: "lg:col-span-2", wide: false, image: serviceGrowthImg },
 ];
 
-export function Services() {
+export function Services({ lead = false }: { lead?: boolean }) {
   return (
-    <section id="services" className={cn(sectionClass, "ambient")}>
+    <section id="services" className={cn(sectionClass, "ambient", lead && leadClass)}>
       <div className="mx-auto max-w-6xl">
         <SectionHead
+          lead={lead}
           eyebrow="Services"
           title="What we build, and what it's for."
           note="Six kinds of work, each planned around what your customers need to do."
@@ -309,7 +330,7 @@ export function Services() {
                     <ArrowRight className="size-4 text-cobalt transition-transform duration-500 group-hover:translate-x-1.5" />
                   </Link>
                 ) : (
-                  <Link to="/" hash="growth-plans" className={linkClass}>
+                  <Link to="/pricing" hash="growth-plans" className={linkClass}>
                     See monthly plans
                     <ArrowRight className="size-4 text-cobalt transition-transform duration-500 group-hover:translate-x-1.5" />
                   </Link>
@@ -331,6 +352,7 @@ export function Services() {
             );
           })}
         </div>
+        {!lead && <MoreLink to="/services">Who we build for, and how we work</MoreLink>}
       </div>
     </section>
   );
@@ -403,20 +425,23 @@ export function BusinessTypes() {
 
 /* ---------- Work ---------- */
 
-export function Work() {
+// `limit` shows only the first few projects, with a link through to the rest.
+export function Work({ lead = false, limit }: { lead?: boolean; limit?: number }) {
+  const shown = limit ? projects.slice(0, limit) : projects;
   return (
-    <section id="work" className={sectionClass}>
+    <section id="work" className={cn(sectionClass, lead && leadClass)}>
       <div className="mx-auto max-w-6xl">
         <SectionHead
+          lead={lead}
           eyebrow="Case studies"
           title="Real work for real businesses."
           note="Websites and platforms for a publishing body, a research journal, a food manufacturer, an insurance advisor, a jewellery brand and a college placement cell."
         />
 
         <div className="grid gap-6 lg:grid-cols-2">
-          {projects.map((p, i) => {
+          {shown.map((p, i) => {
             // The lead project runs full width; so does the last one when it would otherwise sit alone.
-            const wide = i === 0 || (projects.length % 2 === 0 && i === projects.length - 1);
+            const wide = i === 0 || (shown.length % 2 === 0 && i === shown.length - 1);
             return (
               <Reveal key={p.slug} delay={(i % 2) * 80} className={wide ? "lg:col-span-2" : ""}>
                 <ProjectCard project={p} wide={wide} />
@@ -424,6 +449,9 @@ export function Work() {
             );
           })}
         </div>
+        {shown.length < projects.length && (
+          <MoreLink to="/work">See all {projects.length} case studies</MoreLink>
+        )}
       </div>
     </section>
   );
@@ -593,12 +621,13 @@ export function Process() {
 
 /* ---------- Pricing ---------- */
 
-export function Pricing() {
+export function Pricing({ lead = false }: { lead?: boolean }) {
   return (
-    <section id="pricing" className={cn(sectionClass, "sm:px-4")}>
+    <section id="pricing" className={cn(sectionClass, "sm:px-4", lead && leadClass)}>
       <div className="mesh mesh-cool mx-auto max-w-7xl rounded-[2.5rem] px-4 py-14 sm:px-10 sm:py-20">
         <div className="mx-auto max-w-6xl">
           <SectionHead
+            lead={lead}
             eyebrow="Pricing"
             title="Three project levels, based on what the website needs to do."
             note="These are typical investment ranges, not fixed packages. The final scope depends on your requirements."
@@ -827,11 +856,12 @@ export function Founder() {
 
 /* ---------- Resources ---------- */
 
-export function Resources() {
+export function Resources({ lead = false }: { lead?: boolean }) {
   return (
-    <section id="resources" className={sectionClass}>
+    <section id="resources" className={cn(sectionClass, lead && leadClass)}>
       <div className="mx-auto max-w-6xl">
         <SectionHead
+          lead={lead}
           eyebrow="Resources"
           title="Resources for business owners."
           note="Short, practical reads on what a website should do for a business, written without jargon."
@@ -1031,10 +1061,9 @@ export function Footer() {
           <p className="label">Explore</p>
           <ul className="mt-4 space-y-2.5 text-sm">
             {nav.map((l) => (
-              <li key={l.hash}>
+              <li key={l.to}>
                 <Link
-                  to="/"
-                  hash={l.hash}
+                  to={l.to}
                   className="text-muted-foreground transition-colors hover:text-foreground"
                 >
                   {l.label}
@@ -1065,7 +1094,7 @@ export function Footer() {
             </li>
             <li>
               <Link
-                to="/"
+                to="/pricing"
                 hash="growth-plans"
                 className="text-muted-foreground transition-colors hover:text-foreground"
               >
@@ -1074,7 +1103,7 @@ export function Footer() {
             </li>
             <li>
               <Link
-                to="/"
+                to="/pricing"
                 hash="faq"
                 className="text-muted-foreground transition-colors hover:text-foreground"
               >

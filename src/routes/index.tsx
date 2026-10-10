@@ -1,24 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { Hero } from "@/components/Hero";
-import {
-  BusinessTypes,
-  Faq,
-  FinalCta,
-  Founder,
-  GrowthPlans,
-  PlannerTeaser,
-  Pricing,
-  Process,
-  ProofStrip,
-  Redesign,
-  Resources,
-  Services,
-  Testimonials,
-  WhyUs,
-  Work,
-} from "@/components/Sections";
-import { faqs, studio } from "@/data/site";
+import { FinalCta, PlannerTeaser, ProofStrip, Services, Work } from "@/components/Sections";
+import { studio } from "@/data/site";
 import { jsonLd, seo } from "@/lib/seo";
 
 const head = seo({
@@ -51,15 +35,6 @@ export const Route = createFileRoute("/")({
         founder: { "@type": "Person", name: "Pritesh Lad" },
         sameAs: [studio.linkedin, studio.github],
       }),
-      jsonLd({
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: faqs.map((f) => ({
-          "@type": "Question",
-          name: f.q,
-          acceptedAnswer: { "@type": "Answer", text: f.a },
-        })),
-      }),
     ],
   }),
   component: Index,
@@ -70,19 +45,9 @@ function Index() {
     <PageShell>
       <Hero />
       <ProofStrip />
-      <WhyUs />
       <Services />
-      <BusinessTypes />
-      <Work />
+      <Work limit={3} />
       <PlannerTeaser />
-      <Redesign />
-      <Process />
-      <Pricing />
-      <GrowthPlans />
-      <Testimonials />
-      <Founder />
-      <Resources />
-      <Faq />
       <FinalCta />
     </PageShell>
   );
